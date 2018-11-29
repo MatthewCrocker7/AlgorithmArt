@@ -4,8 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
-import ArtSlider from './ArtSlider.js';
-import Example from './Example.js';
+import ArtSlider from '../UIComponents/ArtSlider.js';
 
 const styles = theme => ({
   root: {
@@ -24,9 +23,7 @@ class RecursiveMazeUI extends React.Component {
 
     return(
       <div className={classes.root}>
-        <h1>testing</h1>
-        <Button variant="contained" size="medium" color="primary" className={classes.button}>Generate maze</Button>
-        <Example />
+        <ArtSlider />
         <ArtSlider />
       </div>
     );

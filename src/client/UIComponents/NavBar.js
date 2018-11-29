@@ -1,42 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import 'typeface-roboto';
-import MazeGenerator from './Mazes/MazeGenerator.js';
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3}}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+import MazeGenerator from '../Mazes/MazeGenerator.js';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    height: '100vh',
-    borderStyle: 'solid',
-    borderWidth: '1px',
   },
   tabsRoot: {
     borderBottom: '1px solid #e8e8e8',
   },
   tabsIndicator: {
-    backgroundColor: '#1890ff',
+    backgroundColor: '#34568f',
   },
   tabRoot: {
     textTransform: 'initial',
-    minWidth: 72,
+    minWidth: '15%',
     fontWeight: theme.typography.fontWeightRegular,
     marginRight: theme.spacing.unit * 4,
     fontFamily: [
@@ -52,15 +35,15 @@ const styles = theme => ({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:hover': {
-      color: '#40a9ff',
+      color: '#34568f',
       opacity: 1,
     },
     '&$tabSelected': {
-      color: '#1890ff',
-      fontWeight: theme.typography.fontWeightMedium,
+      color: '#34568f',
+      fontWeight: theme.typography.fontWeightMedium*2,
     },
     '&:focus': {
-      color: '#40a9ff',
+      color: '#34568f',
     },
   },
   tabSelected: {},
@@ -69,8 +52,10 @@ const styles = theme => ({
   },
 });
 
-class Navigation extends React.Component {
-  state = { value: 0 };
+class NavBar extends React.Component {
+  state = {
+    value: 0,
+  };
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -84,36 +69,42 @@ class Navigation extends React.Component {
       <div className={classes.root}>
         <Tabs
           value={value}
+          centered
           onChange={this.handleChange}
           classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
-          centered
         >
           <Tab
-            label="Maze Generator"
-            classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
+            disableRipple
+            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+            label="Mazes"
           />
           <Tab
-            label="Abstract Color"
-            classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
+            disableRipple
+            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+            label="Abstract Art"
           />
           <Tab
-            label="Item Three"
-            classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
+            disableRipple
+            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+            label="Fractals"
           />
           <Tab
-            label="Item Four"
-            classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
+            disableRipple
+            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+            label="Something Cool"
           />
         </Tabs>
         {value === 0 && <MazeGenerator />}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item three</TabContainer>}
-        {value === 3 && <TabContainer>Item four</TabContainer>}
+        {value === 1 && <MazeGenerator />}
+        {value === 2 && <MazeGenerator />}
+        {value === 3 && <MazeGenerator />}
       </div>
     );
   }
 }
 
-Navigation.propTypes = {classes: PropTypes.object.isRequired};
+NavBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default withStyles(styles)(Navigation);
+export default withStyles(styles)(NavBar);
