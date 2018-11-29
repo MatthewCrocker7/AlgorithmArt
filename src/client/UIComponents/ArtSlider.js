@@ -1,12 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
-import { Handle, Track } from './ExampleComponents.js' // example render components - source below
+import { withStyles } from '@material-ui/core/styles';
+import 'typeface-roboto';
+import { Slider, Rail, Handles, Tracks} from 'react-compound-slider';
+import { Handle, Track } from './ArtSliderComponents.js';
+import Typography from '@material-ui/core/Typography';
 
 const sliderStyle = {
   position: 'relative',
-  width: '100%',
-}
+  width: '60%',
+  height: 40,
+  margin: 'auto',
+  marginTop: 15,
+};
 
 const railStyle = {
   position: 'absolute',
@@ -15,12 +21,14 @@ const railStyle = {
   borderRadius: 7,
   cursor: 'pointer',
   backgroundColor: 'rgb(155,155,155)',
-}
+};
 
-const domain = [100, 500]
-const defaultValues = [150]
 
-class Example extends React.Component {
+const domain = [100, 500];
+const defaultValues = [250];
+
+class ArtSlider extends React.Component {
+
   state = {
     values: defaultValues.slice(),
     update: defaultValues.slice(),
@@ -35,10 +43,10 @@ class Example extends React.Component {
   }
 
   render() {
-    const { state: { values, update } } = this
+    const { state: { values, update }} = this
 
-    return (
-      <div style={{ height: 120, width: '100%' }}>
+    return(
+      <div>
         <Slider
           mode={1}
           step={1}
@@ -68,7 +76,7 @@ class Example extends React.Component {
             )}
           </Handles>
           <Tracks right={false}>
-            {({ tracks, getTrackProps }) => (
+            {({ tracks, getTrackProps}) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
                   <Track
@@ -83,8 +91,8 @@ class Example extends React.Component {
           </Tracks>
         </Slider>
       </div>
-    )
+    );
   }
 }
 
-export default Example
+export default ArtSlider
