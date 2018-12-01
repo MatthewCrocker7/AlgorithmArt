@@ -38,17 +38,48 @@ const buttonStyle = {
 };
 
 class MazeGenerator extends React.Component {
+  constructor(){
+    super();
+
+    this.state = {
+      someNum: 0,
+      wallSize: 5,
+      mazeRef: setInitMazeState(100, 100),
+    };
+  }
+
+  generateMaze = someNum => {
+    //this.setState({ someNum: this.state.someNum + 1 });
+  //  for(var i = 0; i < 100; i++){
+      fetch('/api/randomizeMaze')
+        .then(res => res.json())
+        .then(user => this.setState({
+          someNum: user.someNum,
+          mazeRef: user.mazeRef,
+        }));
+  //  }
+
+  }
 
   render() {
       const { classes } = this.props;
+      const { wallSize, mazeRef } = this.state;
+
       return(
         <div className={classes.fullGridUI}>
           <Grid container spacing={24}>
             <Grid item xs={3} zeroMinWidth className={classes.controlsUI}>
-              <MainUI className={classes.button}/>
+              <Button onClick={this.generateMaze} variant="contained" size="medium" color="primary" style={buttonStyle}>Generate maze</Button>
+              <Selector />
+              <h1>{this.state.someNum}</h1>
             </Grid>
             <Grid item xs={9} zeroMinWidth className={classes.mazeContainer}>
-              <MazeCanvas />
+              <MazeCanvas
+                mazeRef={mazeRef}
+                wallSize={wallSize}
+                rows={100}
+                cols={100}
+              />
             </Grid>
           </Grid>
         </div>
@@ -62,6 +93,21 @@ export function MainUI(props) {
       <Selector />
     </div>
   );
+}
+
+function setInitMazeState(rows, cols){
+  var temp = new Array(rows);
+
+  for(var x = 0; x < rows; x++){
+    temp[x] = new Array(cols);
+    for(var y = 0; y < cols; y++){
+    //  if(Math.random() < 0.5){
+        temp[x][y] = 1;
+    //  }
+    }
+  }
+
+  return temp;
 }
 
 

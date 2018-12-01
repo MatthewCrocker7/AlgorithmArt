@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 const sliderStyle = {
   position: 'relative',
-  width: '60%',
+  width: '50%',
   height: 40,
   margin: 'auto',
   marginTop: 15,

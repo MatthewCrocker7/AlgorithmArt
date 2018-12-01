@@ -10,11 +10,6 @@ const styles = theme => ({
   root: {
     display: 'wrap',
   },
-  button: {
-    position: 'relative',
-    margin: theme.spacing.unit,
-    width: '60%',
-  },
 });
 
 class RecursiveMazeUI extends React.Component {

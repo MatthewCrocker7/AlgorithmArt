@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Konva from 'konva';
-import ReactDOM from 'react-dom';
 import { Stage, Layer, Rect, Text, Circle, Line } from 'react-konva';
 
 const styles = theme => ({
@@ -17,17 +16,24 @@ const styles = theme => ({
 
 const width = 500;
 const height = 500;
+//const wallSize = 5;
 
 
 class MazeCanvas extends Component {
-  render() {
-    const { classes } = this.props;
+  constructor(props){
+    super(props);
+  }
 
+  render() {
+    const { classes, mazeRef} = this.props;
+
+    //Render the maze
     return (
       <div className={classes.root}>
         <Stage width={width} height={height}>
           <CreateMaze
-            wallSize={25}
+            wallSize={this.props.wallSize}
+            mazeRef={mazeRef}
           />
         </Stage>
       </div>
@@ -36,13 +42,14 @@ class MazeCanvas extends Component {
 }
 
 export function CreateMaze(props){
-  var maze = new Array(height/props.wallSize);
+  //pass props from MazeCanvas to here, which will send it to the server
+  var maze = new Array(props.mazeRef.length);
 
-  for(var r = 0; r < height/props.wallSize; r++){
-    maze[r] = new Array(width/props.wallSize);
+  for(var r = 0; r < props.mazeRef.length; r++){
+    maze[r] = new Array(props.mazeRef[r].length);
 
-    for(var c = 0; c < width/props.wallSize; c++){
-      if(Math.random() < 0.5){
+    for(var c = 0; c < props.mazeRef[r].length; c++){
+      if(props.mazeRef[r][c] == 1){
         maze[r].push(
           <Rect
             x={c * props.wallSize}
@@ -56,7 +63,6 @@ export function CreateMaze(props){
       }
     }
   }
-
   return(
     <Layer>
       {maze}
