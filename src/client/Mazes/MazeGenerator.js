@@ -43,14 +43,16 @@ class MazeGenerator extends React.Component {
 
     this.state = {
       someNum: 0,
-      wallSize: 5,
-      mazeRef: setInitMazeState(100, 100),
+      wallSize: 10,
+      rows: 50,
+      cols: 50,
+      mazeRef: setInitMazeState(50, 50),
     };
   }
 
   generateMaze = someNum => {
-    //this.setState({ someNum: this.state.someNum + 1 });
-  //  for(var i = 0; i < 100; i++){
+
+      //Can the call be looped somehow?
       fetch('/api/randomizeMaze')
         .then(res => res.json())
         .then(user => this.setState({
@@ -63,7 +65,7 @@ class MazeGenerator extends React.Component {
 
   render() {
       const { classes } = this.props;
-      const { wallSize, mazeRef } = this.state;
+      const { wallSize, rows, cols, mazeRef } = this.state;
 
       return(
         <div className={classes.fullGridUI}>
@@ -77,8 +79,8 @@ class MazeGenerator extends React.Component {
               <MazeCanvas
                 mazeRef={mazeRef}
                 wallSize={wallSize}
-                rows={100}
-                cols={100}
+                rows={rows}
+                cols={cols}
               />
             </Grid>
           </Grid>

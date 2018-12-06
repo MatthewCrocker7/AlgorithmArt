@@ -24,22 +24,28 @@ const railStyle = {
 };
 
 
-const domain = [100, 500];
-const defaultValues = [250];
+const domain = [5, 25];
+const defaultValues = [10];
 
 class ArtSlider extends React.Component {
+  constructor(props){
+    super(props);
 
-  state = {
-    values: defaultValues.slice(),
-    update: defaultValues.slice(),
+    this.state = {
+      values: defaultValues.slice(),
+      update: defaultValues.slice(),
+    }
   }
+
+
 
   onUpdate = update => {
     this.setState({ update })
   }
 
   onChange = values => {
-    this.setState({ values })
+    this.props.onValueChange({ values });
+    this.setState({ values: values });
   }
 
   render() {
@@ -47,6 +53,8 @@ class ArtSlider extends React.Component {
 
     return(
       <div>
+        <h1>{values}</h1>
+        <h1>{update}</h1>
         <Slider
           mode={1}
           step={1}
