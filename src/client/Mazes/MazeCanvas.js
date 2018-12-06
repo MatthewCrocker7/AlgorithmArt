@@ -16,7 +16,6 @@ const styles = theme => ({
 
 const width = 500;
 const height = 500;
-//const wallSize = 5;
 
 
 class MazeCanvas extends Component {
@@ -49,18 +48,21 @@ export function CreateMaze(props){
     maze[r] = new Array(props.mazeRef[r].length);
 
     for(var c = 0; c < props.mazeRef[r].length; c++){
+      var fill = '#FFFFFF'; //Add option to set this in UI
+
       if(props.mazeRef[r][c] == 1){
-        maze[r].push(
-          <Rect
-            x={c * props.wallSize}
-            y={r * props.wallSize}
-            width={props.wallSize}
-            height={props.wallSize}
-            fill='#34568f'
-            shadowBlur={0}
-          />
-        )
+        fill='#34568f';
       }
+      maze[r].push(
+        <Rect
+          x={c * props.wallSize}
+          y={r * props.wallSize}
+          width={props.wallSize}
+          height={props.wallSize}
+          fill={fill}
+          shadowBlur={0}
+        />
+      )
     }
   }
   return(

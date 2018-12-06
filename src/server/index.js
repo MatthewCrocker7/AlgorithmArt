@@ -11,8 +11,8 @@ app.listen(8080, () => console.log('Listening on port 8080!'));
 var num = 0;
 
 app.get('/api/randomizeMaze', function(req, res) {
-  var tempMaze = setInitMazeState(100, 100);
-  var finalMaze = recursiveMaze(100, 100, 1, 1, tempMaze);
+  var tempMaze = setInitMazeState(50, 50);
+  var finalMaze = recursiveMaze(50, 50, 1, 1, tempMaze);
   num++;
 
   res.send({ someNum: num, mazeRef: finalMaze, })
@@ -63,7 +63,7 @@ function recursiveMaze(rows, cols, r, c, maze){
   }
 
   if(choices.length > 1){
-    maze = recursiveMaze(rows, cols, r, c, maze);
+    return recursiveMaze(rows, cols, r, c, maze);
   }
 
 
