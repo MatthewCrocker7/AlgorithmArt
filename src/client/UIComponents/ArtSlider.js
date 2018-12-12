@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 import {
   updateWallSize,
   updateMazeWidth,
-  updateMazeHeight
+  updateMazeHeight,
+  updateMaze
 } from '../../js/actions/actions.js';
 
 const sliderStyle = {
@@ -35,6 +36,7 @@ const mapDispatchToProps = dispatch => {
     updateWallSize: wallSize => dispatch(updateWallSize(wallSize)),
     updateMazeWidth: width => dispatch(updateMazeWidth(width)),
     updateMazeHeight: width => dispatch(updateMazeHeight(width)),
+    updateMaze: (id, update) => dispatch(updateMaze(id, update)),
   };
 };
 
