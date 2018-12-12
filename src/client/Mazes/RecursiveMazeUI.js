@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import 'typeface-roboto';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
 import ArtSlider from '../UIComponents/ArtSlider.js';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -17,6 +15,10 @@ const styles = theme => ({
   }
 });
 
+const mapStateToProps = state => {
+  return { mazeWallSize: state.mazeWallSize };
+};
+
 class RecursiveMazeUI extends React.Component {
   constructor(props){
     super(props);
@@ -27,10 +29,6 @@ class RecursiveMazeUI extends React.Component {
   }
 
 
-  onWallChange = wallValue => {
-    this.setState({wallSize: wallValue.value })
-  };
-
   render() {
     const { classes } = this.props;
     const { wallSize } = this.state;
@@ -38,10 +36,29 @@ class RecursiveMazeUI extends React.Component {
     return(
       <div className={classes.root}>
         <Typography className={classes.textStyle}>
-          Wall Size: {wallSize}
+          Wall Size: 10
         </Typography>
-        <ArtSlider onValueChange={this.onWallChange}/>
-
+        <ArtSlider
+          stateName={'Wall Size'}
+          domain={[5, 25]}
+          defaultValues={[10]}
+        />
+        <Typography className={classes.textStyle}>
+          Maze Width: 500
+        </Typography>
+        <ArtSlider
+          stateName={'Maze Width'}
+          domain={[500, 1000]}
+          defaultValues={[500]}
+        />
+        <Typography className={classes.textStyle}>
+          Maze Height: 500
+        </Typography>
+        <ArtSlider
+          stateName={'Maze Height'}
+          domain={[500, 1000]}
+          defaultValues={[500]}
+        />
       </div>
     );
   }
@@ -50,5 +67,6 @@ class RecursiveMazeUI extends React.Component {
 RecursiveMazeUI.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(RecursiveMazeUI);
