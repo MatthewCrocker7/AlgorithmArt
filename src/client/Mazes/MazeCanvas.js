@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Konva from 'konva';
 import { Stage, Layer, Rect, Text, Circle, Line } from 'react-konva';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {

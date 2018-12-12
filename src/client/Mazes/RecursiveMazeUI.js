@@ -16,48 +16,43 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => {
-  return { mazeWallSize: state.mazeWallSize };
+  return {
+    wallSize: state.mazeWallSize.value.values,
+    mazeWidth: state.mazeWidth.value.values,
+    mazeHeight: state.mazeHeight.value.values,
+  };
 };
 
 class RecursiveMazeUI extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      wallSize: 10,
-    };
-  }
-
 
   render() {
-    const { classes } = this.props;
-    const { wallSize } = this.state;
+    const { classes, wallSize, mazeWidth, mazeHeight } = this.props;
 
     return(
       <div className={classes.root}>
         <Typography className={classes.textStyle}>
-          Wall Size: 10
+          Wall Size: {wallSize == null ? 10 : wallSize}
         </Typography>
         <ArtSlider
           stateName={'Wall Size'}
           domain={[5, 25]}
-          defaultValues={[10]}
+          defaultValues={wallSize == null ? [10] : [wallSize]}
         />
         <Typography className={classes.textStyle}>
-          Maze Width: 500
+          Maze Width: {mazeWidth == null ? 500 : mazeWidth}
         </Typography>
         <ArtSlider
           stateName={'Maze Width'}
-          domain={[500, 1000]}
-          defaultValues={[500]}
+          domain={[300, 1000]}
+          defaultValues={mazeWidth == null ? [500] : [mazeWidth]}
         />
         <Typography className={classes.textStyle}>
-          Maze Height: 500
+          Maze Height: {mazeHeight == null ? [500] : [mazeHeight]}
         </Typography>
         <ArtSlider
           stateName={'Maze Height'}
-          domain={[500, 1000]}
-          defaultValues={[500]}
+          domain={[300, 1000]}
+          defaultValues={mazeHeight == null ? [500] : [mazeHeight]}
         />
       </div>
     );
@@ -68,5 +63,6 @@ RecursiveMazeUI.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const MazeUI = connect(mapStateToProps)(RecursiveMazeUI);
 
-export default withStyles(styles)(RecursiveMazeUI);
+export default withStyles(styles)(MazeUI);

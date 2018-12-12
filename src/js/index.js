@@ -3,5 +3,3 @@ import { addArticle, updateWallSize, updateMazeWidth, updateMazeHeight } from '.
 
 window.store = store;
 window.addArticle = addArticle;
-window.updateWallSize = updateWallSize;
-window.updateMazeWidth = updateMazeWidth;

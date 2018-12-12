@@ -2,7 +2,8 @@ import {
   ADD_ARTICLE,
   UPDATE_WALL_SIZE,
   UPDATE_MAZE_WIDTH,
-  UPDATE_MAZE_HEIGHT
+  UPDATE_MAZE_HEIGHT,
+  UPDATE_MAZE
 } from '../constants/action-types.js';
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
   },
 };
 
-const testState = {
+const mazeInitState = {
   mazeType: '',
   mazeWallSize: {
     id: 'mazeWallSize',
@@ -31,39 +32,36 @@ const testState = {
   }
 };
 
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = mazeInitState, action) => {
   if(action.type == ADD_ARTICLE){
     return { ...state, articles: [...state.articles, action.payload] };
   }
   if(action.type == UPDATE_WALL_SIZE){
     return Object.assign({}, state, {
-      mazeValues: {
-        mazeType: state.mazeValues.mazeType,
-        mazeWallSize: action.payload,
-        mazeWidth: state.mazeValues.mazeWidth,
-        mazeHeight: state.mazeValues.mazeHeight
+      mazeWallSize: {
+        id: state.mazeWallSize.id,
+        value: action.payload,
       }
     });
   }
   if(action.type == UPDATE_MAZE_WIDTH){
     return Object.assign({}, state, {
-      mazeValues: {
-        mazeType: state.mazeValues.mazeType,
-        mazeWallSize: state.mazeValues.mazeWallSize,
-        mazeWidth: action.payload,
-        mazeHeight: state.mazeValues.mazeHeight
+      mazeWidth: {
+        id: state.mazeWidth.id,
+        value: action.payload,
       }
     });
   }
   if(action.type == UPDATE_MAZE_HEIGHT){
     return Object.assign({}, state, {
-      mazeValues: {
-        mazeType: state.mazeValues.mazeType,
-        mazeWallSize: state.mazeValues.mazeWallSize,
-        mazeWidth: state.mazeValues.mazeWidth,
-        mazeHeight: action.payload
+      mazeHeight: {
+        id: state.mazeHeight.id,
+        value: action.payload,
       }
     });
+  }
+  if(action.type == UPDATE_MAZE){
+    return Object.assign({}, state);
   }
   return state;
 };
