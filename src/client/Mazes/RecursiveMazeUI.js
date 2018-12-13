@@ -51,7 +51,7 @@ class RecursiveMazeUI extends React.Component {
         </Typography>
         <ArtSlider
           stateName={'Maze Height'}
-          domain={[300, 1000]}
+          domain={[300, 600]}
           defaultValues={mazeHeight == null ? [500] : [mazeHeight]}
         />
       </div>
