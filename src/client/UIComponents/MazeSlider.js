@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import 'typeface-roboto';
 import { Slider, Rail, Handles, Tracks} from 'react-compound-slider';
-import { Handle, Track } from './ArtSliderComponents.js';
+import { Handle, Track } from './MazeSliderComponents.js';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import {
-  updateWallSize,
-  updateMazeWidth,
-  updateMazeHeight,
   updateMaze
 } from '../../js/actions/actions.js';
 
@@ -33,9 +30,6 @@ const railStyle = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateWallSize: wallSize => dispatch(updateWallSize(wallSize)),
-    updateMazeWidth: width => dispatch(updateMazeWidth(width)),
-    updateMazeHeight: width => dispatch(updateMazeHeight(width)),
     updateMaze: (id, update) => dispatch(updateMaze(id, update)),
   };
 };
@@ -43,7 +37,7 @@ const mapDispatchToProps = dispatch => {
 //const domain = [5, 25];
 //const defaultValues = [10];
 
-class ArtSlider extends React.Component {
+class MazeSlider extends React.Component {
   constructor(props){
     super(props);
 
@@ -59,15 +53,10 @@ class ArtSlider extends React.Component {
 
   onChange = values => {
     this.setState({ values });
-    {this.props.stateName == 'Wall Size' && this.props.updateWallSize({
-      values
-    })};
-    {this.props.stateName == 'Maze Width' && this.props.updateMazeWidth({
-      values
-    })};
-    {this.props.stateName == 'Maze Height' && this.props.updateMazeHeight({
-      values
-    })};
+    this.props.updateMaze(
+      this.props.stateName,
+      {values},
+    );
   }
 
   render() {
@@ -123,6 +112,4 @@ class ArtSlider extends React.Component {
   }
 }
 
-const MazeSlider = connect(null, mapDispatchToProps)(ArtSlider);
-
-export default MazeSlider;
+export default connect(null, mapDispatchToProps)(MazeSlider);
