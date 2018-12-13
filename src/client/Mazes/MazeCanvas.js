@@ -7,17 +7,20 @@ import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
-    display: 'wrap',
-    width: width,
-    height: height,
+    display: 'inline-block',
     margin: 'auto',
     border: '3px solid #34568f',
   },
 });
 
-const width = 500;
-const height = 500;
-
+//const width = 1000;
+//const height = 300;
+const mapStateToProps = state => {
+  return {
+    mazeWidth: state.mazeWidth.value.values,
+    mazeHeight: state.mazeHeight.value.values,
+  };
+};
 
 class MazeCanvas extends Component {
   constructor(props){
@@ -25,12 +28,14 @@ class MazeCanvas extends Component {
   }
 
   render() {
-    const { classes, mazeRef} = this.props;
+    const { classes, mazeRef, mazeWidth, mazeHeight} = this.props;
 
     //Render the maze
     return (
       <div className={classes.root}>
-        <Stage width={width} height={height}>
+        <Stage
+          width={mazeWidth == null ? 500 : mazeWidth}
+          height={mazeHeight == null ? 500 : mazeHeight}>
           <CreateMaze
             wallSize={this.props.wallSize}
             mazeRef={mazeRef}
@@ -77,4 +82,6 @@ MazeCanvas.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MazeCanvas);
+const MazeOutput = connect(mapStateToProps)(MazeCanvas);
+
+export default withStyles(styles)(MazeOutput);
