@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import ArtSlider from '../UIComponents/ArtSlider.js';
+import MazeSlider from '../UIComponents/MazeSlider.js';
 import { connect } from 'react-redux';
 
 const styles = theme => ({
@@ -33,24 +33,24 @@ class RecursiveMazeUI extends React.Component {
         <Typography className={classes.textStyle}>
           Wall Size: {wallSize == null ? 10 : wallSize}
         </Typography>
-        <ArtSlider
-          stateName={'Wall Size'}
+        <MazeSlider
+          stateName={'mazeWallSize'}
           domain={[5, 25]}
           defaultValues={wallSize == null ? [10] : [wallSize]}
         />
         <Typography className={classes.textStyle}>
           Maze Width: {mazeWidth == null ? 500 : mazeWidth}
         </Typography>
-        <ArtSlider
-          stateName={'Maze Width'}
+        <MazeSlider
+          stateName={'mazeWidth'}
           domain={[300, 1000]}
           defaultValues={mazeWidth == null ? [500] : [mazeWidth]}
         />
         <Typography className={classes.textStyle}>
           Maze Height: {mazeHeight == null ? [500] : [mazeHeight]}
         </Typography>
-        <ArtSlider
-          stateName={'Maze Height'}
+        <MazeSlider
+          stateName={'mazeHeight'}
           domain={[300, 600]}
           defaultValues={mazeHeight == null ? [500] : [mazeHeight]}
         />
@@ -63,6 +63,4 @@ RecursiveMazeUI.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const MazeUI = connect(mapStateToProps)(RecursiveMazeUI);
-
-export default withStyles(styles)(MazeUI);
+export default connect(mapStateToProps)(withStyles(styles)(RecursiveMazeUI))
