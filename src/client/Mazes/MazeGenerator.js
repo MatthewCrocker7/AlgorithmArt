@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import 'typeface-roboto';
 import Selector from '../UIComponents/Selector.js';
 import MazeCanvas from './MazeCanvas.js';
-
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   controlsUI: {
@@ -33,6 +33,14 @@ const buttonStyle = {
   backgroundColor: '#34568f',
 };
 
+const mapStateToProps = state => {
+  return {
+    mazeWallSize: state.mazeWallSize.value.values,
+    mazeWidth: state.mazeWidth.value.values,
+    mazeHeight: state.mazeHeight.value.values,
+  };
+};
+
 class MazeGenerator extends React.Component {
   constructor(){
     super();
@@ -47,16 +55,22 @@ class MazeGenerator extends React.Component {
   }
 
   generateMaze = someNum => {
-
-      //Can the call be looped somehow?
-      fetch('/api/randomizeMaze')
+      fetch('/api/randomizeMaze', {
+        method: 'POST',
+        body: JSON.stringify({
+          mazeWallSize: this.props.mazeWallSize,
+          mazeWidth: this.props.mazeWidth,
+          mazeHeight: this.props.mazeHeight,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
         .then(res => res.json())
         .then(user => this.setState({
-          someNum: user.someNum,
+          wallSize: user.wallSize,
           mazeRef: user.mazeRef,
         }));
-  //  }
-
   }
 
   render() {
@@ -75,8 +89,6 @@ class MazeGenerator extends React.Component {
               <MazeCanvas
                 mazeRef={mazeRef}
                 wallSize={wallSize}
-                rows={rows}
-                cols={cols}
               />
             </Grid>
           </Grid>
@@ -111,4 +123,4 @@ function setInitMazeState(rows, cols){
 
 MazeGenerator.propTypes = {classes: PropTypes.object.isRequired,};
 
-export default withStyles(styles)(MazeGenerator);
+export default connect(mapStateToProps)(withStyles(styles)(MazeGenerator));

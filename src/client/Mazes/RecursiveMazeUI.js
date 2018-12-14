@@ -17,7 +17,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    wallSize: state.mazeWallSize.value.values,
+    mazeWallSize: state.mazeWallSize.value.values,
     mazeWidth: state.mazeWidth.value.values,
     mazeHeight: state.mazeHeight.value.values,
   };
@@ -26,17 +26,17 @@ const mapStateToProps = state => {
 class RecursiveMazeUI extends React.Component {
 
   render() {
-    const { classes, wallSize, mazeWidth, mazeHeight } = this.props;
+    const { classes, mazeWallSize, mazeWidth, mazeHeight } = this.props;
 
     return(
       <div className={classes.root}>
         <Typography className={classes.textStyle}>
-          Wall Size: {wallSize == null ? 10 : wallSize}
+          Wall Size: {mazeWallSize == null ? 10 : mazeWallSize}
         </Typography>
         <MazeSlider
           stateName={'mazeWallSize'}
           domain={[5, 25]}
-          defaultValues={wallSize == null ? [10] : [wallSize]}
+          defaultValues={mazeWallSize == null ? [10] : [mazeWallSize]}
         />
         <Typography className={classes.textStyle}>
           Maze Width: {mazeWidth == null ? 500 : mazeWidth}
