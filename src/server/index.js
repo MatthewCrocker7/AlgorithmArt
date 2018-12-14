@@ -1,21 +1,42 @@
 const express = require('express');
 const os = require('os');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 app.use(express.static('dist'));
+
+app.use( bodyParser.json() );
+
+app.use(express.json());
+
 app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
 app.listen(8080, () => console.log('Listening on port 8080!'));
 
 
 var num = 0;
+var mazeWallSize = 10;
+var mazeWidth = 500;
+var mazeHeight = 500;
 
-app.get('/api/randomizeMaze', function(req, res) {
-  var tempMaze = setInitMazeState(50, 50);
-  var finalMaze = recursiveMaze(50, 50, 1, 1, tempMaze);
+app.post('/api/randomizeMaze', function(req, res) {
+  if (typeof req.body.mazeWallSize !== 'undefined')
+    mazeWallSize = req.body.mazeWallSize[0]
+  if (typeof req.body.mazeWidth !== 'undefined')
+    mazeWidth = req.body.mazeWidth[0]
+  if (typeof req.body.mazeHeight !== 'undefined')
+    mazeHeight = req.body.mazeHeight[0]
+
+  var rows = Math.floor( mazeHeight / mazeWallSize );
+  var cols = Math.floor( mazeWidth / mazeWallSize )
+
+  console.log(mazeWallSize);
+
+  var tempMaze = setInitMazeState(rows, cols);
+  var finalMaze = recursiveMaze(rows, cols, 1, 1, tempMaze);
   num++;
 
-  res.send({ someNum: num, mazeRef: finalMaze, })
+  res.send({ wallSize: mazeWallSize, mazeRef: finalMaze, })
 });
 
 function recursiveMaze(rows, cols, r, c, maze){

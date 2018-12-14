@@ -34,8 +34,8 @@ class MazeCanvas extends Component {
     return (
       <div className={classes.root}>
         <Stage
-          width={mazeWidth == null ? 500 : mazeWidth}
-          height={mazeHeight == null ? 500 : mazeHeight}>
+          width={mazeWidth == null ? 500 : mazeWidth[0]}
+          height={mazeHeight == null ? 500 : mazeHeight[0]}>
           <CreateMaze
             wallSize={this.props.wallSize}
             mazeRef={mazeRef}
