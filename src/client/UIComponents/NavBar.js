@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import MazeGenerator from '../Mazes/MazeGenerator.js';
+import AbstractGenerator from '../AbstractArt/AbstractGenerator.js';
 
 const styles = theme => ({
   root: {
@@ -95,7 +96,7 @@ class NavBar extends React.Component {
           />
         </Tabs>
         {value === 0 && <MazeGenerator />}
-        {value === 1 && <MazeGenerator />}
+        {value === 1 && <AbstractGenerator />}
         {value === 2 && <MazeGenerator />}
         {value === 3 && <MazeGenerator />}
       </div>

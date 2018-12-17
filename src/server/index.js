@@ -19,13 +19,24 @@ var mazeWallSize = 10;
 var mazeWidth = 500;
 var mazeHeight = 500;
 
-app.post('/api/randomizeMaze', function(req, res) {
+//MAZES
+app.post('/api/Mazes/recursiveMaze', function(req, res) {
   if (typeof req.body.mazeWallSize !== 'undefined')
     mazeWallSize = req.body.mazeWallSize[0]
+  else {
+    mazeWallSize = 10;
+  }
   if (typeof req.body.mazeWidth !== 'undefined')
     mazeWidth = req.body.mazeWidth[0]
-  if (typeof req.body.mazeHeight !== 'undefined')
+  else {
+    mazeWidth = 500;
+  }
+  if (typeof req.body.mazeHeight !== 'undefined'){
     mazeHeight = req.body.mazeHeight[0]
+  }
+  else {
+    mazeHeight = 500;
+  }
 
   var rows = Math.floor( mazeHeight / mazeWallSize );
   var cols = Math.floor( mazeWidth / mazeWallSize )
@@ -107,3 +118,10 @@ function setInitMazeState(rows, cols){
 
   return temp;
 }
+
+//ABSTRACT ART
+app.get('/api/AbstractArt/First', function(req, res){
+var abstractRef = 10;
+
+  res.send({ abstractRef: abstractRef})
+});

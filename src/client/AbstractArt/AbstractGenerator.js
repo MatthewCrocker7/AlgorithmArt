@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import 'typeface-roboto';
 import Selector from '../UIComponents/Selector.js';
-import MazeCanvas from './MazeCanvas.js';
+import AbstractCanvas from './AbstractCanvas.js';
 import { connect } from 'react-redux';
 
 const styles = theme => ({
@@ -41,7 +41,7 @@ const mapStateToProps = state => {
   };
 };
 
-class MazeGenerator extends React.Component {
+class AbstractGenerator extends React.Component {
   constructor(){
     super();
 
@@ -49,44 +49,32 @@ class MazeGenerator extends React.Component {
       wallSize: 10,
       rows: 50,
       cols: 50,
-      mazeRef: setInitMazeState(50, 50),
+      abstractRef: 0,
     };
   }
 
-  generateMaze = someNum => {
-      fetch('/api/Mazes/recursiveMaze', {
-        method: 'POST',
-        body: JSON.stringify({
-          mazeWallSize: this.props.mazeWallSize,
-          mazeWidth: this.props.mazeWidth,
-          mazeHeight: this.props.mazeHeight,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+  generateAbstract = someNum => {
+      fetch('/api/AbstractArt/First')
         .then(res => res.json())
         .then(user => this.setState({
-          wallSize: user.wallSize,
-          mazeRef: user.mazeRef,
+          abstractRef: user.abstractRef,
         }));
   }
 
   render() {
       const { classes } = this.props;
-      const { wallSize, rows, cols, mazeRef } = this.state;
+      const { wallSize, rows, cols, abstractRef } = this.state;
 
       return(
         <div className={classes.fullGridUI}>
           <Grid container spacing={24}>
             <Grid item xs={3} zeroMinWidth className={classes.controlsUI}>
-              <Button onClick={this.generateMaze} variant="contained" size="medium" color="primary" style={buttonStyle}>Generate maze</Button>
+              <Button onClick={this.generateAbstract} variant="contained" size="medium" color="primary" style={buttonStyle}>Create Art</Button>
               <Selector />
             </Grid>
             <Grid item xs={9} zeroMinWidth className={classes.mazeContainer}>
-              <MazeCanvas
-                mazeRef={mazeRef}
-                wallSize={wallSize}
+              <AbstractCanvas
+                abstractRef={abstractRef}
               />
             </Grid>
           </Grid>
@@ -103,22 +91,8 @@ export function MainUI(props) {
   );
 }
 
-function setInitMazeState(rows, cols){
-  var temp = new Array(rows);
-
-  for(var x = 0; x < rows; x++){
-    temp[x] = new Array(cols);
-    for(var y = 0; y < cols; y++){
-    //  if(Math.random() < 0.5){
-        temp[x][y] = 1;
-    //  }
-    }
-  }
-
-  return temp;
-}
 
 
-MazeGenerator.propTypes = {classes: PropTypes.object.isRequired,};
+AbstractGenerator.propTypes = {classes: PropTypes.object.isRequired,};
 
-export default connect(mapStateToProps)(withStyles(styles)(MazeGenerator));
+export default connect(mapStateToProps)(withStyles(styles)(AbstractGenerator));
