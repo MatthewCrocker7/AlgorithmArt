@@ -33,30 +33,6 @@ const mazeInitState = {
 };
 
 const rootReducer = (state = mazeInitState, action) => {
-  if(action.type == ADD_ARTICLE){
-    return { ...state, articles: [...state.articles, action.payload] };
-  }
-  if(action.type == UPDATE_WALL_SIZE){
-    return Object.assign({}, state, {
-      mazeWallSize: {
-        id: state.mazeWallSize.id,
-        value: action.payload,
-      }});
-  }
-  if(action.type == UPDATE_MAZE_WIDTH){
-    return Object.assign({}, state, {
-      mazeWidth: {
-        id: state.mazeWidth.id,
-        value: action.payload,
-      }});
-  }
-  if(action.type == UPDATE_MAZE_HEIGHT){
-    return Object.assign({}, state, {
-      mazeHeight: {
-        id: state.mazeHeight.id,
-        value: action.payload,
-      }});
-  }
   if(action.type == UPDATE_MAZE){
     switch(action.id) {
       case state.mazeWallSize.id:
