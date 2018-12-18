@@ -17,7 +17,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    abstractPixelSize: state.abstract.abstractPixelSize.value.values,
+    abstractResolution: state.abstract.abstractResolution.value.values,
     abstractWidth: state.abstract.abstractWidth.value.values,
     abstractHeight: state.abstract.abstractHeight.value.values,
   };
@@ -25,17 +25,17 @@ const mapStateToProps = state => {
 
 class AbstractUI extends React.Component {
   render(){
-    const { classes, abstractPixelSize, abstractWidth, abstractHeight } = this.props;
+    const { classes, abstractResolution, abstractWidth, abstractHeight } = this.props;
 
     return(
       <div className={classes.root}>
         <Typography className={classes.textStyle}>
-          Resolution: {abstractPixelSize == null ? 2 : abstractPixelSize}
+          Resolution: {abstractResolution == null ? 2 : abstractResolution}
         </Typography>
         <AbstractSlider
-          stateName={'abstractPixelSize'}
-          domain={[1, 5]}
-          defaultValues={abstractPixelSize == null ? [2] : [abstractPixelSize]}
+          stateName={'abstractResolution'}
+          domain={[2, 10]}
+          defaultValues={abstractResolution == null ? [2] : [abstractResolution]}
         />
         <Typography className={classes.textStyle}>
           Art Width: {abstractWidth == null ? 400 : abstractWidth}

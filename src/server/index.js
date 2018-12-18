@@ -121,14 +121,14 @@ function setInitMazeState(rows, cols){
 
 //ABSTRACT ART
 app.post('/api/AbstractArt/First', function(req, res){
-var abstractPixelSize;
+var abstractResolution;
 var abstractRef = Math.random();
-  if (typeof req.body.abstractPixelSize !== 'undefined')
-    abstractPixelSize = req.body.abstractPixelSize[0]
+  if (typeof req.body.abstractResolution !== 'undefined')
+    abstractResolution = req.body.abstractResolution[0]
   else {
-    abstractPixelSize = 2;
+    abstractResolution = 2;
   }
 
-  console.log(abstractPixelSize);
-  res.send({ abstractPixelSize: abstractPixelSize, abstractRef: abstractRef})
+  console.log(abstractResolution);
+  res.send({ abstractResolution: abstractResolution, abstractRef: abstractRef})
 });
