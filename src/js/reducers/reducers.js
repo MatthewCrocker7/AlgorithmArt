@@ -25,8 +25,8 @@ const mazeInitState = {
 
 const abstractInitState = {
   abstractType: '',
-  abstractPixelSize: {
-    id: 'abstractPixelSize',
+  abstractResolution: {
+    id: 'abstractResolution',
     value: 2
   },
   abstractWidth: {
@@ -74,10 +74,10 @@ export const mazeReducer = (state = mazeInitState, action) => {
 export const abstractReducer = (state = abstractInitState, action) => {
   if(action.type == UPDATE_ABSTRACT){
     switch(action.id) {
-      case state.abstractPixelSize.id:
+      case state.abstractResolution.id:
         return Object.assign({}, state, {
-          abstractPixelSize: {
-            id: state.abstractPixelSize.id,
+          abstractResolution: {
+            id: state.abstractResolution.id,
             value: action.payload,
           }});
         break;

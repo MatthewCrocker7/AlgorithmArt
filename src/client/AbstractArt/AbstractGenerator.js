@@ -35,7 +35,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    abstractPixelSize: state.abstract.abstractPixelSize.value.values,
+    abstractResolution: state.abstract.abstractResolution.value.values,
   };
 };
 
@@ -54,7 +54,7 @@ class AbstractGenerator extends React.Component {
       fetch('/api/AbstractArt/First', {
         method: 'POST',
         body: JSON.stringify({
-          abstractPixelSize: this.props.abstractPixelSize,
+          abstractResolution: this.props.abstractResolution,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ class AbstractGenerator extends React.Component {
       })
         .then(res => res.json())
         .then(user => this.setState({
-          resolution: user.abstractPixelSize,
+          resolution: user.abstractResolution,
           abstractRef: user.abstractRef,
         }));
   }
