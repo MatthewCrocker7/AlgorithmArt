@@ -1,5 +1,10 @@
-import { createStore } from 'redux';
-import rootReducer from '../reducers/reducers.js';
+import { createStore, combineReducers } from 'redux';
+import { mazeReducer, abstractReducer } from '../reducers/reducers.js';
+
+const rootReducer = combineReducers({
+  maze: mazeReducer,
+  abstract: abstractReducer
+});
 
 const store = createStore(rootReducer);
 

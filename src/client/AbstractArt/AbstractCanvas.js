@@ -9,6 +9,7 @@ const styles = theme => ({
   root: {
     display: 'inline-block',
     margin: 'auto',
+    backgroundColor: '#34568f',
   },
 });
 
@@ -16,8 +17,8 @@ const styles = theme => ({
 //const height = 300;
 const mapStateToProps = state => {
   return {
-    mazeWidth: state.mazeWidth.value.values,
-    mazeHeight: state.mazeHeight.value.values,
+    abstractWidth: state.abstract.abstractWidth.value.values,
+    abstractHeight: state.abstract.abstractHeight.value.values,
   };
 };
 
@@ -27,15 +28,16 @@ class AbstractCanvas extends Component {
   }
 
   render() {
-    const { classes, abstractRef, mazeWidth, mazeHeight} = this.props;
+    const { classes, abstractRef, abstractWidth, abstractHeight, resolution} = this.props;
 
     //Render the maze
     return (
       <div className={classes.root}>
         <Stage
-          width={mazeWidth == null ? 500 : mazeWidth[0]}
-          height={mazeHeight == null ? 500 : mazeHeight[0]}>
+          width={abstractWidth == null ? 400 : abstractWidth[0]}
+          height={abstractHeight == null ? 400 : abstractHeight[0]}>
           <CreateAbstract
+            resolution={resolution}
             abstractRef={abstractRef}
           />
         </Stage>
@@ -48,27 +50,32 @@ export function CreateAbstract(props){
     return(
       <Layer>
         <Rect
-          width={500}
-          height={500}
+          width={400}
+          height={400}
           fill={'#000000'}
         />
       </Layer>
     )
   }
-  var maze = new Array(250);
 
-  for(var r = 0; r < 250; r++){
-    maze[r] = new Array(250);
+  var pixelSize = props.resolution;
+  var rows = 400/pixelSize;
+  var cols = 400/pixelSize;
 
-    for(var c = 0; c < 250; c++){
+  var abstract = new Array(rows);
+
+  for(var r = 0; r < rows; r++){
+    abstract[r] = new Array(cols);
+
+    for(var c = 0; c < cols; c++){
       var fill = '#' + Math.random().toString(16).slice(2, 8);
       //var fill = '#000000';
-      maze[r].push(
+      abstract[r].push(
         <Rect
-          x={c*2}
-          y={r*2}
-          width={2}
-          height={2}
+          x={c * props.resolution}
+          y={r * props.resolution}
+          width={props.resolution}
+          height={props.resolution}
           fill={fill}
           shadowBlur={0}
           key={r + '_' + c}
@@ -78,46 +85,11 @@ export function CreateAbstract(props){
   }
   return(
     <Layer>
-      {maze}
+      {abstract}
     </Layer>
   );
 }
 
-function nextColor(props){
-
-}
-
-export function CreateMaze(props){
-  //pass props from MazeCanvas to here, which will send it to the server
-  var maze = new Array(props.mazeRef.length);
-
-  for(var r = 0; r < props.mazeRef.length; r++){
-    maze[r] = new Array(props.mazeRef[r].length);
-
-    for(var c = 0; c < props.mazeRef[r].length; c++){
-      var fill = '#FFFFFF'; //Add option to set this in UI
-
-      if(props.mazeRef[r][c] == 1){
-        fill='#000080';
-      }
-      maze[r].push(
-        <Rect
-          x={c * props.wallSize}
-          y={r * props.wallSize}
-          width={props.wallSize}
-          height={props.wallSize}
-          fill={fill}
-          shadowBlur={0}
-        />
-      )
-    }
-  }
-  return(
-    <Layer>
-      {maze}
-    </Layer>
-  );
-}
 
 AbstractCanvas.propTypes = {
   classes: PropTypes.object.isRequired,

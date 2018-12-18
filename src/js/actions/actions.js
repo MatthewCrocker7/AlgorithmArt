@@ -1,15 +1,10 @@
 import {
-  ADD_ARTICLE,
   UPDATE_WALL_SIZE,
   UPDATE_MAZE_WIDTH,
   UPDATE_MAZE_HEIGHT,
-  UPDATE_MAZE
+  UPDATE_MAZE,
+  UPDATE_ABSTRACT
 } from "../constants/action-types.js";
-
-export const addArticle = article => ({
-  type: ADD_ARTICLE,
-  payload: article
-});
 
 export const updateWallSize = wallSize => ({
   type: UPDATE_WALL_SIZE,
@@ -28,6 +23,12 @@ export const updateMazeHeight = height => ({
 
 export const updateMaze = (id, update) => ({
   type: UPDATE_MAZE,
+  id: id,
+  payload: update
+});
+
+export const updateAbstract = (id, update) => ({
+  type: UPDATE_ABSTRACT,
   id: id,
   payload: update
 });
