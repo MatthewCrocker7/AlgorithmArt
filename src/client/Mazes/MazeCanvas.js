@@ -18,8 +18,8 @@ const styles = theme => ({
 //const height = 300;
 const mapStateToProps = state => {
   return {
-    mazeWidth: state.mazeWidth.value.values,
-    mazeHeight: state.mazeHeight.value.values,
+    mazeWidth: state.maze.mazeWidth.value.values,
+    mazeHeight: state.maze.mazeHeight.value.values,
   };
 };
 

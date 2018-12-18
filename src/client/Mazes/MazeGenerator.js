@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import 'typeface-roboto';
 import Selector from '../UIComponents/Selector.js';
 import MazeCanvas from './MazeCanvas.js';
@@ -35,9 +33,9 @@ const buttonStyle = {
 
 const mapStateToProps = state => {
   return {
-    mazeWallSize: state.mazeWallSize.value.values,
-    mazeWidth: state.mazeWidth.value.values,
-    mazeHeight: state.mazeHeight.value.values,
+    mazeWallSize: state.maze.mazeWallSize.value.values,
+    mazeWidth: state.maze.mazeWidth.value.values,
+    mazeHeight: state.maze.mazeHeight.value.values,
   };
 };
 

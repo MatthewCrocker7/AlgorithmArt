@@ -17,9 +17,9 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    mazeWallSize: state.mazeWallSize.value.values,
-    mazeWidth: state.mazeWidth.value.values,
-    mazeHeight: state.mazeHeight.value.values,
+    mazeWallSize: state.maze.mazeWallSize.value.values,
+    mazeWidth: state.maze.mazeWidth.value.values,
+    mazeHeight: state.maze.mazeHeight.value.values,
   };
 };
 

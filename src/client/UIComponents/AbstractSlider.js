@@ -7,7 +7,7 @@ import { Handle, Track } from './MazeSliderComponents.js';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import {
-  updateMaze
+  updateAbstract
 } from '../../js/actions/actions.js';
 
 const sliderStyle = {
@@ -30,14 +30,14 @@ const railStyle = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMaze: (id, update) => dispatch(updateMaze(id, update)),
+    updateAbstract: (id, update) => dispatch(updateAbstract(id, update)),
   };
 };
 
 //const domain = [5, 25];
 //const defaultValues = [10];
 
-class MazeSlider extends React.Component {
+class AbstractSlider extends React.Component {
   constructor(props){
     super(props);
 
@@ -48,12 +48,12 @@ class MazeSlider extends React.Component {
   }
 
   onUpdate = update => {
-    this.setState({ update });
+    this.setState({ update })
   }
 
   onChange = values => {
     this.setState({ values });
-    this.props.updateMaze(
+    this.props.updateAbstract(
       this.props.stateName,
       {values},
     );
@@ -112,4 +112,4 @@ class MazeSlider extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(MazeSlider);
+export default connect(null, mapDispatchToProps)(AbstractSlider);
