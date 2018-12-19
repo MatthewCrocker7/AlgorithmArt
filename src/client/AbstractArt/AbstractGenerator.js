@@ -36,6 +36,8 @@ const styles = theme => ({
 const mapStateToProps = state => {
   return {
     abstractResolution: state.abstract.abstractResolution.value.values,
+    abstractWidth: state.abstract.abstractWidth.value.values,
+    abstractHeight: state.abstract.abstractHeight.value.values
   };
 };
 
@@ -55,6 +57,8 @@ class AbstractGenerator extends React.Component {
         method: 'POST',
         body: JSON.stringify({
           abstractResolution: this.props.abstractResolution,
+          abstractWidth: this.props.abstractWidth,
+          abstractHeight: this.props.abstractHeight
         }),
         headers: {
           'Content-Type': 'application/json',
