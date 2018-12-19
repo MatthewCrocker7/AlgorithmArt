@@ -60,9 +60,8 @@ export function CreateAbstract(props){
     )
   }
 
-  var pixelSize = props.resolution;
-  var rows = Math.floor(props.height/props.resolution, 0);
-  var cols = Math.floor(props.width/props.resolution, 0);
+  var rows = props.abstractRef.length;
+  var cols = props.abstractRef[0].length;
 
   //var abstract = new Array(rows);
   var abstract = []
@@ -80,7 +79,7 @@ export function CreateAbstract(props){
           y={r * props.resolution}
           width={props.resolution}
           height={props.resolution}
-          fill={fill}
+          fill={props.abstractRef[r][c]}
           key={r + '_' + c}
         />
       )
